@@ -13,15 +13,17 @@ async function fetch_slide(id) {
 
 async function render_slide(id) {
     // A little hack to avoid flashing when changing slide..
-    fetch_slide(id).then((data) => {
+    fetch_slide(id).then(async (data) => {
         if (current == 1) {
             slideContainer = document.getElementById("slide-a").innerHTML = data;
+            await timeout(1);
             document.getElementById("slide-a").style.display = "block";
             document.getElementById("slide-b").style.display = "none";
             current = 0;
             slideContainer = document.getElementById("slide-b").innerHTML = "";
         } else {
             slideContainer = document.getElementById("slide-b").innerHTML = data;
+            await timeout(1);
             document.getElementById("slide-b").style.display = "block";
             document.getElementById("slide-a").style.display = "none";
             current = 1;
@@ -56,7 +58,7 @@ async function run(screen_id) {
             } else {
                 await timeout(data['slides'][i]['duration']);
             }
-            
+
         }
         if (data['slides'].length == 0) {
             await timeout(1);
