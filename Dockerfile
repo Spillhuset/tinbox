@@ -19,3 +19,6 @@ RUN pip install -r requirements.txt
 
 # copy project
 COPY . .
+
+RUN python3 manage.py collectstatic --noinput
+ENV STATIC_ROOT=/app/static_built
