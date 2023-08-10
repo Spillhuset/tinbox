@@ -98,7 +98,7 @@ def edit_slide(request, id):
     if request.method == "POST":
         data = request.POST
         slide_data = {}
-        
+
         if 'settings-active' in data and data['settings-active'] == "on":
             slide.active = True
         else:
@@ -144,7 +144,7 @@ def new_slide(request, slideshow_id, template_id):
         data = request.POST
         slide_data = {}
         slide = Slide()
-        
+
         slide.title = data['settings-title']
 
         if 'settings-active' in data and data['settings-active'] == "on":
@@ -156,7 +156,7 @@ def new_slide(request, slideshow_id, template_id):
             slide.duration = data['settings-duration']
 
         if data['settings-weight'].isnumeric():
-            slide.weight = data['settings-weight'] 
+            slide.weight = data['settings-weight']
 
         for field in template_fields['fields']:
             if field['name'] in data:
@@ -217,3 +217,11 @@ def api_get_screen(request, id):
     data = {"screen": screen_dict, "slides": slides_dict}
     return JsonResponse(data)
 
+def media(request, path):
+    file_path = os.path.join("media", path)
+    if os.path.exists(file_path):
+        with open(file_path, 'rb') as fh:
+            response = HttpResponse(fh.read(), content_type="application/octet-stream")
+            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+            return response
+    return HttpResponse("File not found", status=404)

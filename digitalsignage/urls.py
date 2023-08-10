@@ -18,4 +18,5 @@ urlpatterns = [
     path('asset/new', views.new_asset, name="new_asset"),
     path('asset/<int:id>', views.view_asset, name="view_asset"),
     path('asset/<int:id>/delete', views.delete_asset, name="delete_asset"),
+    path('media/<path:path>', views.media, name='media')
 ]
