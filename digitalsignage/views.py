@@ -12,7 +12,7 @@ from .models import *
 
 def index(request):
     if not request.user.is_authenticated:
-        if os.environ.get("OAUTH_ENABLED", True):
+        if os.environ.get("OAUTH_ENABLED", 'False') == 'True':
             return render(request, 'login.html')
         else:
             return redirect("/accounts/login")
