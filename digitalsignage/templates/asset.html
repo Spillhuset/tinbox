@@ -11,12 +11,12 @@
 
 <div class="container px-5 my-5">
     <img src="{{ asset.image.url }}" style="max-width: 100%;"/>
-    <input type="text" class="form-control" type="text" disabled=disabled value="https://tinbox.gathering.org{{ asset.image.url }}" />
+    <input type="text" class="form-control" type="text" disabled=disabled value="{{ asset.image.url }}" />
 </div>
 
 <form class="pb-10" id="slide-form" method="post">
     {% csrf_token %}
-<div class="container px-5 my-5">   
+<div class="container px-5 my-5">
     <div class="form-floating mb-3">
         <input class="form-control" id="name" name="name" type="text" required="required"  placeholder="Name" value="{{ asset.name }}"/>
         <label for="name">Name</label>
