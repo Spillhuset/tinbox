@@ -49,7 +49,7 @@ td {
 }
 
 .image-4th {
-    position: absolute; 
+    position: absolute;
     top: 120px;
     right: 120px;
     width: 640px;
@@ -80,10 +80,22 @@ td {
     width: 100%;
 }
 
-#backgroud_video {
-    position: fixed;
-    top: 0;
-    left: 0;
+#backgroud {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 1920px;
     height: 1080px;
+}
+
+#background > img {
+    /* center this image vertically and horizontally */
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    width: 1200px;
+    opacity: 70%;
 }
