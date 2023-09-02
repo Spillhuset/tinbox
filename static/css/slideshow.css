@@ -80,22 +80,8 @@ td {
     width: 100%;
 }
 
-#backgroud {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 1920px;
-    height: 1080px;
-}
-
-#background > img {
-    /* center this image vertically and horizontally */
+#background {
     position: absolute;
-    top: 0;
-    left: 0;
     bottom: 0;
     right: 0;
-    margin: auto;
-    width: 1200px;
-    opacity: 70%;
 }
