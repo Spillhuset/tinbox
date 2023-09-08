@@ -22,7 +22,7 @@ class Screen(models.Model):
     master = models.ForeignKey(Slideshow, on_delete=models.SET_NULL, null=True, blank=True, related_name="master")
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
-    
+
     def __str__(self):
         return self.name
 
@@ -35,10 +35,23 @@ class SlideTemplates(models.Model):
 
     def __str__(self):
         return self.name
-    
+
     @property
     def usage(self):
         return len(Slide.objects.filter(template=self.id))
+
+class Background(models.Model):
+    name = models.CharField(max_length=200)
+    template = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+
+    @property
+    def usage(self):
+        return len(Slide.objects.filter(background=self.id))
 
 class Slide(models.Model):
     title = models.CharField(max_length=200, blank=True)
@@ -49,12 +62,13 @@ class Slide(models.Model):
     active = models.BooleanField(default=True)
     active_until = models.DateTimeField(default=one_month_from_today, blank=True, null=True)
     weight = models.IntegerField(default=10)
+    background = models.ForeignKey(Background, on_delete=models.SET_NULL, null=True, blank=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.title
-    
+
     @property
     def is_active(self):
         if not self.active:
@@ -62,12 +76,12 @@ class Slide(models.Model):
         elif self.active_until < timezone.now():
             return False
         return True
-    
+
     @property
     def has_expired(self):
         if self.active_until < timezone.now():
             return True
-        return False 
+        return False
 
 class Asset(models.Model):
     name = models.CharField(max_length=200)

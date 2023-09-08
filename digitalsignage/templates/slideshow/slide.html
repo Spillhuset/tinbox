@@ -1,7 +1,5 @@
 <link rel="stylesheet" href="/static/css/slideshow.css">
-{% if preview %}
-<img src="/static/spillhuset.png" id="background">
-{% endif %}
+{{ slide.background.template | safe }}
 <div id="tv">
 {{ slide_template | safe}}
 </div>

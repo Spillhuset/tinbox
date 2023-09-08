@@ -21,8 +21,9 @@ def index(request):
     screens = Screen.objects.all()
     slide_templates = SlideTemplates.objects.all()
     slides = Slide.objects.all()
+    backgrounds = Background.objects.all()
 
-    context = {"slides": len(slides), "slide_templates": len(slide_templates), "screens": len(screens), "slideshows": len(slideshows)}
+    context = {"slides": len(slides), "slide_templates": len(slide_templates), "screens": len(screens), "slideshows": len(slideshows), "backgrounds": len(backgrounds)}
     return render(request, 'index.html', context)
 
 @login_required
@@ -91,6 +92,7 @@ def edit_slide(request, id):
     slideshow = Slideshow.objects.get(slide_slideshow__id=id)
     slide = Slide.objects.get(id=id)
     template_fields = json.loads(slide.template.fields)
+    backgrounds = Background.objects.all()
 
     if not request.user.has_perm('digitalsignage.change_slideshow', slideshow):
         return render(request, '403.html')
@@ -110,6 +112,9 @@ def edit_slide(request, id):
         if data['settings-active_until'] != "":
             slide.active_until = data['settings-active_until']
 
+        if data['settings-background'] != "":
+            slide.background = Background.objects.get(id=data['settings-background'])
+
         for field in template_fields['fields']:
             if field['name'] in data:
                 slide_data[field['name']] = data[field['name']]
@@ -126,9 +131,7 @@ def edit_slide(request, id):
         else:
             field['data'] = ""
 
-
-
-    context = {"slideshow": slideshow, "slide": slide, "template_fields": template_fields }
+    context = {"slideshow": slideshow, "slide": slide, "template_fields": template_fields, "backgrounds": backgrounds }
     return render(request, 'slide.html', context)
 
 @login_required
@@ -136,6 +139,7 @@ def new_slide(request, slideshow_id, template_id):
     slideshow = Slideshow.objects.get(id=slideshow_id)
     template = SlideTemplates.objects.get(id=template_id)
     template_fields = json.loads(template.fields)
+    backgrounds = Background.objects.all()
 
     if not request.user.has_perm('digitalsignage.change_slideshow', slideshow):
         return render(request, '403.html')
@@ -158,6 +162,9 @@ def new_slide(request, slideshow_id, template_id):
         if data['settings-weight'].isnumeric():
             slide.weight = data['settings-weight']
 
+        if data['settings-background'] != "":
+            slide.background = Background.objects.get(id=data['settings-background'])
+
         for field in template_fields['fields']:
             if field['name'] in data:
                 slide_data[field['name']] = data[field['name']]
@@ -172,7 +179,7 @@ def new_slide(request, slideshow_id, template_id):
     for field in template_fields['fields']:
         field['data'] = ""
 
-    context = {"slideshow": slideshow, "template": template, "template_fields": template_fields }
+    context = {"slideshow": slideshow, "template": template, "template_fields": template_fields, "backgrounds": backgrounds }
     return render(request, 'new_slide.html', context)
 
 @login_required

@@ -86,7 +86,14 @@
         <input class="form-control" id="settings-weight" name="settings-weight" min=0 type="number" placeholder="Weight" value="{{ slide.weight }}"/>
         <label for="settings-weight">Weight</label>
     </div>
-    
+    <div class="form-floating mb-3">
+        <select class="form-select" id="settings-background" name="settings-background" aria-label="Background">
+            {% for background in backgrounds %}
+                <option value="{{ background.id }}" {% if slide.background == background %}selected{% endif %}>{{ background }}</option>
+            {% endfor %}
+        </select>
+        <label for="settings-background">Background</label>
+    </div>
     <div class="d-grid">
         <button class="btn btn-primary btn-lg" id="submitButton" type="submit">Save</button>
     </div>

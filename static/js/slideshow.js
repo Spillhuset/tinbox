@@ -17,6 +17,7 @@ async function render_slide(id) {
         if (current == 1) {
             slideContainer = document.getElementById("slide-a").innerHTML = data;
             await timeout(1);
+            backgroundContainer = document.getElementById("background").innerHTML = data;
             document.getElementById("slide-a").style.display = "block";
             document.getElementById("slide-b").style.display = "none";
             current = 0;
@@ -24,6 +25,7 @@ async function render_slide(id) {
         } else {
             slideContainer = document.getElementById("slide-b").innerHTML = data;
             await timeout(1);
+            backgroundContainer = document.getElementById("background").innerHTML = data;
             document.getElementById("slide-b").style.display = "block";
             document.getElementById("slide-a").style.display = "none";
             current = 1;
