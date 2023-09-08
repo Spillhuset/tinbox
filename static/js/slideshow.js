@@ -32,6 +32,10 @@ async function render_slide(id) {
             slideContainer = document.getElementById("slide-a").innerHTML = "";
         }
     });
+
+    // add support for non-1k screens
+    const width = window.innerWidth;
+    document.body.style.zoom = width / 1920;
 }
 
 function timeout(s) {
