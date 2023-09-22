@@ -1,14 +1,4 @@
-@font-face {
-    font-family: "Droid Sans";
-    src: url('/static/fonts/droid-sans/DroidSans.ttf') format('truetype');
-    font-weight: normal;
-  }
-
-@font-face {
-    font-family: "Droid Sans";
-    src: url('/static/fonts/droid-sans/DroidSans-Bold.ttf') format('truetype');
-    font-weight: bold;
-  }
+@import url('https://fonts.googleapis.com/css2?family=B612:wght@400;700&display=swap');
 
 body {
     background-color: #000;
@@ -20,7 +10,7 @@ body {
     position: absolute;
     top: 0px;
     left: 0px;
-    font-family: "Droid Sans";
+    font-family: "B612";
     width: 1920px;
     height: 1080px;
     overflow: hidden;
