@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, reverse
+from django.conf import settings
 from django.http import HttpResponse, JsonResponse
 from django.forms.models import model_to_dict
 from django.template import Template, Context
@@ -12,10 +13,8 @@ from .models import *
 
 def index(request):
     if not request.user.is_authenticated:
-        if os.environ.get("OAUTH_ENABLED", 'False') == 'True':
-            return render(request, 'login.html')
-        else:
-            return redirect("/accounts/login")
+        if settings.SHAUTH_KEY is None: return redirect("/accounts/login")
+        else: return redirect("/auth")
 
     slideshows = Slideshow.objects.all()
     screens = Screen.objects.all()

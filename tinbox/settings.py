@@ -34,13 +34,13 @@ CSRF_TRUSTED_ORIGINS = os.environ.get("CSRF_TRUSTED_ORIGINS", "http://127.0.0.1"
 
 INSTALLED_APPS = [
     'digitalsignage.apps.DigitalsignageConfig',
+    'shauth.apps.ShauthConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'social_django',
     'guardian',
 ]
 
@@ -53,12 +53,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
-AUTHENTICATION_BACKENDS = (
-    'social_core.backends.keycloak.KeycloakOAuth2',
-    'django.contrib.auth.backends.ModelBackend',
-    'guardian.backends.ObjectPermissionBackend',
-)
 
 ROOT_URLCONF = 'tinbox.urls'
 
@@ -144,19 +138,9 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-# Add you connection settings here
-SOCIAL_AUTH_KEYCLOAK_KEY = os.environ.get("SOCIAL_AUTH_KEYCLOAK_KEY")
-SOCIAL_AUTH_KEYCLOAK_SECRET = os.environ.get("SOCIAL_AUTH_KEYCLOAK_SECRET")
-SOCIAL_AUTH_KEYCLOAK_PUBLIC_KEY = os.environ.get("SOCIAL_AUTH_KEYCLOAK_PUBLIC_KEY")
-SOCIAL_AUTH_KEYCLOAK_AUTHORIZATION_URL = os.environ.get("SOCIAL_AUTH_KEYCLOAK_AUTHORIZATION_URL")
-SOCIAL_AUTH_KEYCLOAK_ACCESS_TOKEN_URL = os.environ.get("SOCIAL_AUTH_KEYCLOAK_ACCESS_TOKEN_URL")
-SOCIAL_AUTH_KEYCLOAK_ID_KEY = os.environ.get("SOCIAL_AUTH_KEYCLOAK_ID_KEY")
-SOCIAL_AUTH_KEYCLOAK_LOGOUT_URL = os.environ.get("SOCIAL_AUTH_KEYCLOAK_LOGOUT_URL")
-SOCIAL_AUTH_KEYCLOAK_EXTRA_DATA=[("refresh_token","refresh_token")]
-
-SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
-
 LOGIN_REDIRECT_URL = '/'
+
+SHAUTH_KEY = os.environ.get("SHAUTH_KEY", None)
 
 
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')

@@ -19,8 +19,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('', include('digitalsignage.urls')),
-    path('auth/', include('social_django.urls', namespace='social')),
+    path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('auth/', include('shauth.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
